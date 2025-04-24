@@ -53,11 +53,13 @@ void solve() {
             count++;
         }
         for(auto it:adj[node] ) {
-            if(c + 1 <= m && !visited[it]) {
-                q.push({it,c + 1});
+            if(cats[node] == 1) {
+                if(c + 1 <= m && !visited[it]) {
+                    q.push({it,c + 1});
+                }
             }
             else if(!visited[it]){
-                
+                q.push({it,0});
             }
         }
     }
