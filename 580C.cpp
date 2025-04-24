@@ -6,11 +6,14 @@ ios_base::sync_with_stdio(false); \
 cin.tie(NULL);                  \
 cout.tie(NULL)
 
-bool isLeaf(int node,vector<vector<int>> &adj,vector<int> &visited) {
-    for(auto it:adj[node]) {
-        if(!visited[it]) return false;
-    }
-    return true;
+bool isLeaf(int node,vector<vector<int>> &adj) {
+    // for(auto it:adj[node]) {
+    //     if(!visited[it]) return false;
+    // }
+    // return true;
+    if(adj[node].size() == 1) return true;
+
+    return false;
 }
 
 void solve() {
@@ -43,17 +46,19 @@ void solve() {
         int c = q.front().second;
         q.pop();
         visited[node] = true;
-
-        // if(node != 1 && adj[node].size() == 1 && c <= m) {// leaf node 
-        //     count++;
-        // }
-        if(c > m) {
+        
+        if(cats[node] == 0) c = 0;
+        
+        if(isLeaf(node,adj) && c + cats[node] <= m) {
             count++;
-            continue;
         }
-        if(cats[node] ==0)  c = 0;
-        for(auto it:adj[node]) {
-            if(!visited[it]) q.push({it,c + cats[it]});
+        for(auto it:adj[node] ) {
+            if(c + 1 <= m && !visited[it]) {
+                q.push({it,c + 1});
+            }
+            else if(!visited[it]){
+                
+            }
         }
     }
     cout << count << endl;
@@ -67,5 +72,3 @@ int main() {
     //}
     return 0;
 }
-    // std::ifstream fi("input.txt");
-    // std::ofstream fo("output.txt");
